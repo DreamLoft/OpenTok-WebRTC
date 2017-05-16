@@ -18,13 +18,19 @@ router.get('/createSession', function (req, res) {
 
     } else {
       sessionId = session.sessionId;
+         res.json(
+              {
+                   session: sessionId,
+                   token: opentok.generateToken(sessionId)
+              }
+         );
       res.send(sessionId);
     }
   });
 });
 router.get('/createToken/:session',function (req,res) {
   var s= req.params.session ;
-  res.send(opentok.generateToken(s));
+  res.json({token: opentok.generateToken(s)});
 });
 
 module.exports = router;
