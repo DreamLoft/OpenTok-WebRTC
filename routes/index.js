@@ -6,7 +6,7 @@ const API_KEY= 45842272;
 const  API_SECRET= "dca4eb15b39bd692fa39755f503494d55a864eb1"
 
 var opentok = new OpenTok(API_KEY, API_SECRET);
-var sessionId;
+var sessionId, token;
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -18,13 +18,13 @@ router.get('/createSession', function (req, res) {
 
     } else {
       sessionId = session.sessionId;
+         token =opentok.generateToken(sessionId);
          res.json(
               {
                    session: sessionId,
-                   token: opentok.generateToken(sessionId)
+                   token: token
               }
          );
-      res.send(sessionId);
     }
   });
 });
